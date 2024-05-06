@@ -9,7 +9,7 @@ void loop() {
   if(pinoUmidade > 500){
   Serial.println("Muito seco: " + analogRead(pinoUmidade));
   }
-  else (pinoUmidade < 500) && (pinoUmidade < 400){
+  else if((pinoUmidade < 500) && (pinoUmidade < 400)){
       Serial.println("Umidade normal: " + analogRead(pinoUmidade));
   }
   else{

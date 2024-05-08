@@ -6,15 +6,26 @@ void setup() {
 }
 
 void loop() {
-  if(pinoUmidade > 500){
-  Serial.println("Muito seco: " + analogRead(pinoUmidade));
-  }
-  else if((pinoUmidade < 500) && (pinoUmidade < 400)){
-      Serial.println("Umidade normal: " + analogRead(pinoUmidade));
-  }
-  else{
-          Serial.println("Bastante úmido: " + analogRead(pinoUmidade));
-  }
+  int intUmidade = analogRead(pinoUmidade);
+  double dbPercentualUmidade = ObterPercentualDeUmidade(intUmidade);
 
-  delay(1000);
+  if (dbPercentualUmidade < 15) {
+      Serial.print("Pouca umidade: ");
+  } else if ((dbPercentualUmidade > 15) && (dbPercentualUmidade < 50)) {
+    Serial.print("Umidade normal: ");
+  } else {
+    Serial.print("Bastante úmido: ");
+  }
+    Serial.print(dbPercentualUmidade);
+    Serial.println("%");
+  delay(6000);
+}
+
+double ObterPercentualDeUmidade(int intUmidade) {
+  double intDifUmidade = 0;
+  double dbPercentualUmidade = 0;
+  intDifUmidade = 1023 - intUmidade;
+  dbPercentualUmidade = double(intDifUmidade) / 1023;
+  dbPercentualUmidade = dbPercentualUmidade * 100;
+  return dbPercentualUmidade;
 }
